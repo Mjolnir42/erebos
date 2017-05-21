@@ -45,7 +45,7 @@ type Config struct {
 	} `json:"twister"`
 }
 
-// fromFile sets Config c based on the file contents
+// FromFile sets Config c based on the file contents
 func (c *Config) FromFile(fname string) error {
 	var (
 		file, uclJSON []byte
