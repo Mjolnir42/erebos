@@ -51,6 +51,17 @@ type Config struct {
 		ListenPort         string `json:"listen.port"`
 		EndpointPath       string `json:"api.endpoint.path"`
 	} `json:"mistral"`
+	// DustDevil is the namespace with configuration options relating to
+	// forwarding Kafka read messages to an HTTP API
+	DustDevil struct {
+		HandlerQueueLength int    `json:"handler.queue.length,string"`
+		Endpoint           string `json:"api.endpoint"`
+		RetryCount         int    `json:"post.request.retry.count,string"`
+		RetryMinWaitTime   int    `json:"retry.min.wait.time.ms,string"`
+		RetryMaxWaitTime   int    `json:"retry.max.wait.time.ms,string"`
+		RequestTimeout     int    `json:"request.timeout.ms,string"`
+		StripStringMetrics bool   `json:"strip.string.metrics,string"`
+	} `json:"dustdevil"`
 }
 
 // FromFile sets Config c based on the file contents
