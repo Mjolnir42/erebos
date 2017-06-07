@@ -13,12 +13,24 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
+	"github.com/client9/reopen"
 	ucl "github.com/nahanni/go-ucl"
 )
 
 // Config holds the runtime configuration which is expected to be
 // read from a UCL formatted file
 type Config struct {
+	// Log is the namespace for logging options
+	Log struct {
+		// Name of the logfile
+		File string `json:"log.file"`
+		// Path in wich to open the logfile
+		Path string `json:"log.path"`
+		// Reopen the logfile if SIGUSR2 is received
+		Rotate bool `json:"log.rotate.on.usr2,string"`
+		// Handle to the logfile
+		FH *reopen.FileWriter `json:"-"`
+	}
 	// Zookeeper is the namespace with options for Apache Zookeeper
 	Zookeeper struct {
 		// How often to publish offset updates to Zookeeper
