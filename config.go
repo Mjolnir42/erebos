@@ -49,6 +49,12 @@ type Config struct {
 		ConsumerTopics string `json:"consumer.topics"`
 		// Which topic to produce to
 		ProducerTopic string `json:"producer.topic"`
+		// Producer-Response behaviour: NoResponse, WaitForLocal or WaitForAll
+		ProducerResponseStrategy string `json:"producer.response.strategy"`
+		// Producer retry attempts
+		ProducerRetry int `json:"producer.retry.attempts,string"`
+		// Keepalive interval in milliseconds
+		Keepalive int `json:"keepalive.ms,string"`
 	} `json:"kafka"`
 	// Twister is the namespace with configuration options relating to
 	// the splitting of metric batches
