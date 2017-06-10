@@ -81,7 +81,7 @@ runloop:
 					msg.Offset,
 				)
 			}
-			dispatch(msg.Value)
+			dispatch(Transport{Value: msg.Value})
 
 			offsets[msg.Topic][msg.Partition] = msg.Offset
 			consumer.CommitUpto(msg)
