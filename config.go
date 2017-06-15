@@ -82,6 +82,17 @@ type Config struct {
 		RequestTimeout     int    `json:"request.timeout.ms,string"`
 		StripStringMetrics bool   `json:"strip.string.metrics,string"`
 	} `json:"dustdevil"`
+	// Legacy is the namespace with configuration options relating to
+	// legacy data formats
+	Legacy struct {
+		// Path for the legacy.MetricSocket
+		SocketPath string `json:"socket.path"`
+	} `json:"legacy"`
+	// Misc is the namespace with miscellaneous settings
+	Misc struct {
+		// Whether to produce metrics or not
+		ProduceMetrics bool `json:"produce.metrics,string"`
+	} `json:"misc"`
 }
 
 // FromFile sets Config c based on the file contents
