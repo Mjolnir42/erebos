@@ -92,6 +92,8 @@ type Config struct {
 	Misc struct {
 		// Whether to produce metrics or not
 		ProduceMetrics bool `json:"produce.metrics,string"`
+		// Name of the application instance
+		InstanceName string `json:"instance.name"`
 	} `json:"misc"`
 }
 
