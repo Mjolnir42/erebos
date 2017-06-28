@@ -83,6 +83,24 @@ type Config struct {
 		RequestTimeout     int    `json:"request.timeout.ms,string"`
 		StripStringMetrics bool   `json:"strip.string.metrics,string"`
 	} `json:"dustdevil"`
+	// Cyclone is the namespace with configuration options relating
+	// to threshold evaluation of metrics
+	Cyclone struct {
+		MetricsMaxAge  int    `json:"metrics.max.age.minutes,string"`
+		DestinationURI string `json:"alarming.destination"`
+		LookupHost     string `json:"lookup.host"`
+		LookupPort     string `json:"lookup.port"`
+		LookupPath     string `json:"lookup.path"`
+		TestMode       bool   `json:"testmode,string"`
+		APIVersion     string `json:"api.version"`
+	} `json:"cyclone"`
+	// Redis is the namespace with configuration options relating
+	// to Redis
+	Redis struct {
+		Connect  string `json:"connect"`
+		Password string `json:"password"`
+		DB       int64  `json:"db.number,string"`
+	} `json:"redis"`
 	// Legacy is the namespace with configuration options relating to
 	// legacy data formats
 	Legacy struct {
