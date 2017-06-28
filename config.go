@@ -12,6 +12,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"path/filepath"
 
 	"github.com/client9/reopen"
 	ucl "github.com/nahanni/go-ucl"
@@ -106,6 +107,12 @@ func (c *Config) FromFile(fname string) error {
 		parser        *ucl.Parser
 		uclData       map[string]interface{}
 	)
+	if fname, err = filepath.Abs(fname); err != nil {
+		return err
+	}
+	if fname, err = filepath.EvalSymlinks(fname); err != nil {
+		return err
+	}
 	if file, err = ioutil.ReadFile(fname); err != nil {
 		return err
 	}
