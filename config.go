@@ -107,6 +107,13 @@ type Config struct {
 		// Path for the legacy.MetricSocket
 		SocketPath string `json:"socket.path"`
 	} `json:"legacy"`
+	// ElasticSearch is the namespace with configuration options relating
+	// to ElasticSearch
+	ElasticSearch struct {
+		Endpoint       string `json:"endpoint"`
+		ClusterMetrics bool   `json:"collect.cluster.metrics,string"`
+		LocalMetrics   bool   `json:"collect.local.metrics,string"`
+	} `json:"elasticsearch"`
 	// Misc is the namespace with miscellaneous settings
 	Misc struct {
 		// Whether to produce metrics or not
