@@ -56,7 +56,7 @@ func Consumer(conf *Config, dispatch Dispatcher,
 	}
 
 	offsets := make(map[string]map[int32]int64)
-	commitNotification := make(chan *Commit)
+	commitNotification := make(chan *Commit, 512)
 	done := make(chan struct{})
 	go DelayedCommit(consumer, commitNotification, shutdown, done)
 
