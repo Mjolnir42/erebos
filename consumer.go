@@ -56,6 +56,9 @@ func Consumer(conf *Config, dispatch Dispatcher,
 	}
 
 	offsets := make(map[string]map[int32]int64)
+	commitNotification := make(chan *Commit)
+	done := make(chan struct{})
+	go DelayedCommit(consumer, commitNotification, shutdown, done)
 
 runloop:
 	for {
@@ -81,12 +84,19 @@ runloop:
 					msg.Offset,
 				)
 			}
-			dispatch(Transport{Value: msg.Value})
+			dispatch(Transport{
+				Value:     msg.Value,
+				Topic:     msg.Topic,
+				Partition: msg.Partition,
+				Offset:    msg.Offset,
+				Commit:    commitNotification,
+			})
 
 			offsets[msg.Topic][msg.Partition] = msg.Offset
-			consumer.CommitUpto(msg)
 		}
 	}
+	// wait for OffsetCommit to stop before closing consumergroup
+	<-done
 	// not sending the error into the death channel since shutdown
 	// is already initiated
 	if err := consumer.Close(); err != nil {
@@ -95,6 +105,81 @@ runloop:
 	// in the error case, wait for the shutdown
 	<-shutdown
 	close(exit)
+}
+
+// DelayedCommit handles submitting processed offsets to the consumergroup.
+// Offsets are not committed as they are read, but processing stages are
+// expected to signal DelayedCommit via notify which offsets have been
+// successfully processed.
+func DelayedCommit(cg *consumergroup.ConsumerGroup, notify chan *Commit, shutdown, done chan struct{}) {
+	offsets := make(map[string]map[int32]int64)
+	uncommitted := make(map[string]map[int32][]*Commit)
+
+notifyloop:
+	for {
+		select {
+		case n := <-notify:
+			if offsets[n.Topic] == nil {
+				offsets[n.Topic] = make(map[int32]int64)
+				uncommitted[n.Topic] = make(map[int32][]*Commit)
+			}
+			// first offset
+			if offsets[n.Topic][n.Partition] == 0 {
+				cg.CommitUpto(&sarama.ConsumerMessage{
+					Topic:     n.Topic,
+					Partition: n.Partition,
+					Offset:    n.Offset,
+				})
+				// processing done, check for next notification
+				continue notifyloop
+			}
+			// offset is in order
+			if offsets[n.Topic][n.Partition] == n.Offset-1 {
+				cg.CommitUpto(&sarama.ConsumerMessage{
+					Topic:     n.Topic,
+					Partition: n.Partition,
+					Offset:    n.Offset,
+				})
+				if uncommitted[n.Topic][n.Partition] == nil {
+					uncommitted[n.Topic][n.Partition] = []*Commit{}
+				}
+			uncommittedloop:
+				// doubled loop so the inner loop can be restarted
+				for {
+					for i := range uncommitted[n.Topic][n.Partition] {
+						if offsets[n.Topic][n.Partition] == uncommitted[n.Topic][n.Partition][i].Offset-1 {
+							// found a notification that is now in order and
+							// can be committed
+							cg.CommitUpto(&sarama.ConsumerMessage{
+								Topic:     uncommitted[n.Topic][n.Partition][i].Topic,
+								Partition: uncommitted[n.Topic][n.Partition][i].Partition,
+								Offset:    uncommitted[n.Topic][n.Partition][i].Offset,
+							})
+							// remove committed notification from array
+							uncommitted[n.Topic][n.Partition] = append(uncommitted[n.Topic][n.Partition][:i],
+								uncommitted[n.Topic][n.Partition][i+1:]...)
+							// restart scanning for uncommitted
+							// notifications that should now be
+							// committed
+							continue uncommittedloop
+						}
+					}
+					break uncommittedloop
+				}
+				// processing done, check for next notification
+				continue notifyloop
+			}
+			// offset is _NOT_ in order, store it for later
+			if uncommitted[n.Topic][n.Partition] == nil {
+				uncommitted[n.Topic][n.Partition] = []*Commit{}
+			}
+			uncommitted[n.Topic][n.Partition] = append(uncommitted[n.Topic][n.Partition], n)
+		case <-shutdown:
+			break notifyloop
+		}
+	}
+	// signal that DelayedCommit has shutdown
+	close(done)
 }
 
 // vim: ts=4 sw=4 sts=4 noet fenc=utf-8 ffs=unix
