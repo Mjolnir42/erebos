@@ -31,6 +31,8 @@ type Config struct {
 		Rotate bool `json:"rotate.on.usr2,string"`
 		// Handle to the logfile
 		FH *reopen.FileWriter `json:"-"`
+		// Switch to enable debug logging
+		Debug bool `json:"debug,string"`
 	} `json:"log"`
 	// Zookeeper is the namespace with options for Apache Zookeeper
 	Zookeeper struct {
