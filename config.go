@@ -88,13 +88,14 @@ type Config struct {
 	// Cyclone is the namespace with configuration options relating
 	// to threshold evaluation of metrics
 	Cyclone struct {
-		MetricsMaxAge  int    `json:"metrics.max.age.minutes,string"`
-		DestinationURI string `json:"alarming.destination"`
-		LookupHost     string `json:"lookup.host"`
-		LookupPort     string `json:"lookup.port"`
-		LookupPath     string `json:"lookup.path"`
-		TestMode       bool   `json:"testmode,string"`
-		APIVersion     string `json:"api.version"`
+		MetricsMaxAge      int    `json:"metrics.max.age.minutes,string"`
+		DestinationURI     string `json:"alarming.destination"`
+		LookupHost         string `json:"lookup.host"`
+		LookupPort         string `json:"lookup.port"`
+		LookupPath         string `json:"lookup.path"`
+		TestMode           bool   `json:"testmode,string"`
+		APIVersion         string `json:"api.version"`
+		HandlerQueueLength int    `json:"handler.queue.length,string"`
 	} `json:"cyclone"`
 	// Redis is the namespace with configuration options relating
 	// to Redis
