@@ -109,6 +109,11 @@ type Config struct {
 	Legacy struct {
 		// Path for the legacy.MetricSocket
 		SocketPath string `json:"socket.path"`
+		// Print out metrics on STDERR. Requires the application to set a
+		// debug formatting function
+		MetricsDebug bool `json:"metrics.debug.stderr,string"`
+		// Frequency to print out debug metrics
+		MetricsFrequency int `json:"metrics.debug.frequency.seconds,string"`
 	} `json:"legacy"`
 	// ElasticSearch is the namespace with configuration options relating
 	// to ElasticSearch
