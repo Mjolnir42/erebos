@@ -84,6 +84,7 @@ type Config struct {
 		RetryMaxWaitTime   int    `json:"retry.max.wait.time.ms,string"`
 		RequestTimeout     int    `json:"request.timeout.ms,string"`
 		StripStringMetrics bool   `json:"strip.string.metrics,string"`
+		ConcurrencyLimit   uint32 `json:"post.request.concurrency.limit,string"`
 	} `json:"dustdevil"`
 	// Cyclone is the namespace with configuration options relating
 	// to threshold evaluation of metrics
