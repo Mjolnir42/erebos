@@ -130,6 +130,15 @@ type Config struct {
 		// Name of the application instance
 		InstanceName string `json:"instance.name"`
 	} `json:"misc"`
+	// Hurricane is the namespace with configuration options relating
+	// to the calculation of derived metrics
+	Hurricane struct {
+		HandlerQueueLength int  `json:"handler.queue.length,string"`
+		DeriveCTX          bool `json:"derive.ctx.metrics,string"`
+		DeriveCPU          bool `json:"derive.cpu.metrics,string"`
+		DeriveMEM          bool `json:"derive.mem.metrics,string"`
+		DeriveDISK         bool `json:"derive.disk.metrics,string"`
+	} `json:"hurricane"`
 }
 
 // FromFile sets Config c based on the file contents
