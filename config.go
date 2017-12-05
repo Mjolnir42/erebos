@@ -140,6 +140,13 @@ type Config struct {
 		DeriveMEM          bool `json:"derive.mem.metrics,string"`
 		DeriveDISK         bool `json:"derive.disk.metrics,string"`
 	} `json:"hurricane"`
+	// Eyewall is the namespace for configuration options relating to
+	// the eye lookup client library
+	Eyewall struct {
+		Host string `json:"host"`
+		Port string `json:"port"`
+		Path string `json:"path"`
+	} `json:"eyewall"`
 }
 
 // FromFile sets Config c based on the file contents
