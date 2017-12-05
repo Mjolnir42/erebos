@@ -85,6 +85,7 @@ type Config struct {
 		RequestTimeout     int    `json:"request.timeout.ms,string"`
 		StripStringMetrics bool   `json:"strip.string.metrics,string"`
 		ConcurrencyLimit   uint32 `json:"post.request.concurrency.limit,string"`
+		ForwardElastic     bool   `json:"api.endpoint.is.elasticsearch,string"`
 	} `json:"dustdevil"`
 	// Cyclone is the namespace with configuration options relating
 	// to threshold evaluation of metrics
