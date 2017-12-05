@@ -101,9 +101,10 @@ type Config struct {
 	// Redis is the namespace with configuration options relating
 	// to Redis
 	Redis struct {
-		Connect  string `json:"connect"`
-		Password string `json:"password"`
-		DB       int64  `json:"db.number,string"`
+		Connect      string `json:"connect"`
+		Password     string `json:"password"`
+		DB           int64  `json:"db.number,string"`
+		CacheTimeout uint64 `json:"cache.timeout.seconds,string"`
 	} `json:"redis"`
 	// Legacy is the namespace with configuration options relating to
 	// legacy data formats
