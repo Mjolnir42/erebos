@@ -97,6 +97,10 @@ type Config struct {
 		APIVersion         string   `json:"api.version"`
 		HandlerQueueLength int      `json:"handler.queue.length,string"`
 		ConcurrencyLimit   uint32   `json:"post.request.concurrency.limit,string"`
+		RetryCount         int      `json:"post.request.retry.count,string"`
+		RetryMinWaitTime   int      `json:"retry.min.wait.time.ms,string"`
+		RetryMaxWaitTime   int      `json:"retry.max.wait.time.ms,string"`
+		RequestTimeout     int      `json:"request.timeout.ms,string"`
 		DiscardMetrics     []string `json:"discard.metrics"`
 	} `json:"cyclone"`
 	// Redis is the namespace with configuration options relating
