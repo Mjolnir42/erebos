@@ -74,6 +74,7 @@ type Config struct {
 		ListenAddress      string `json:"listen.address"`
 		ListenPort         string `json:"listen.port"`
 		EndpointPath       string `json:"api.endpoint.path"`
+		ShutdownGrace      int    `json:"graceful.shutdown.delay.seconds,string"`
 	} `json:"mistral"`
 	// DustDevil is the namespace with configuration options relating to
 	// forwarding Kafka read messages to an HTTP API
