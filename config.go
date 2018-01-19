@@ -109,7 +109,7 @@ type Config struct {
 	Redis struct {
 		Connect      string `json:"connect"`
 		Password     string `json:"password"`
-		DB           int64  `json:"db.number,string"`
+		DB           int    `json:"db.number,string"`
 		CacheTimeout uint64 `json:"cache.timeout.seconds,string"`
 	} `json:"redis"`
 	// Legacy is the namespace with configuration options relating to
