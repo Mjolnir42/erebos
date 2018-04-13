@@ -12,6 +12,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"net/url"
 	"path/filepath"
 
 	"github.com/client9/reopen"
@@ -154,6 +155,18 @@ type Config struct {
 		Port string `json:"port"`
 		Path string `json:"path"`
 	} `json:"eyewall"`
+	// Eye is the namespace for configuration options relating to
+	// the eye configuration profile server
+	Eye struct {
+		Daemon struct {
+			URL    *url.URL `json:"-"`
+			Listen string   `json:"listen"`
+			Port   string   `json:"port"`
+			TLS    bool     `json:"tls,string"`
+			Cert   string   `json:"cert-file"`
+			Key    string   `json:"key-file"`
+		} `json:"daemon"`
+	} `json:"eye"`
 }
 
 // FromFile sets Config c based on the file contents
