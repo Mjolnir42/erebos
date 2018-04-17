@@ -158,7 +158,9 @@ type Config struct {
 	// Eye is the namespace for configuration options relating to
 	// the eye configuration profile server
 	Eye struct {
-		Daemon struct {
+		QueueLen int    `json:"handler.queue.length,string"`
+		SomaURL  string `json:"soma.address"`
+		Daemon   struct {
 			URL    *url.URL `json:"-"`
 			Listen string   `json:"listen"`
 			Port   string   `json:"port"`
