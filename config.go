@@ -158,9 +158,15 @@ type Config struct {
 	// Eye is the namespace for configuration options relating to
 	// the eye configuration profile server
 	Eye struct {
-		QueueLen int    `json:"handler.queue.length,string"`
-		SomaURL  string `json:"soma.address"`
-		Daemon   struct {
+		QueueLen         int    `json:"handler.queue.length,string"`
+		SomaURL          string `json:"soma.address"`
+		SomaPrefix       string `json:"soma.default.feedback.path.prefix"`
+		ConcurrencyLimit uint32 `json:"post.request.concurrency.limit,string"`
+		RetryCount       int    `json:"post.request.retry.count,string"`
+		RetryMinWaitTime int    `json:"retry.min.wait.time.ms,string"`
+		RetryMaxWaitTime int    `json:"retry.max.wait.time.ms,string"`
+		RequestTimeout   int    `json:"request.timeout.ms,string"`
+		Daemon           struct {
 			URL    *url.URL `json:"-"`
 			Listen string   `json:"listen"`
 			Port   string   `json:"port"`
