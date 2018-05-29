@@ -194,6 +194,22 @@ type Config struct {
 		Timeout string `json:"timeout" valid:"numeric"`
 		TLSMode string `json:"tlsmode" valid:"alpha"`
 	} `json:"postgresql"`
+	// Geocontrol is the namespace for configuration options relating
+	// to Zookeeper-based inter-cluster synchronization
+	Geocontrol struct {
+		// Connect string for the Zookeeper-Ensemble to use
+		Connect string `json:"connect.string"`
+		// Name of the tool this is an instance of
+		ToolName string `json:"tool.name"`
+		// Name of the managed tool instance
+		InstanceName string `json:"instance.name"`
+		// PublicKey for the tool instance
+		InstancePubKey string `json:"instance.public.key"`
+		// PrivateKey for the tool instance
+		InstancePrvKey string `json:"instance.private.key"`
+		// Datacenter in which this runs
+		Datacenter string `json:"datacenter"`
+	} `json:"geocontrol"`
 }
 
 // FromFile sets Config c based on the file contents
