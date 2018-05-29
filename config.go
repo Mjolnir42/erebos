@@ -154,6 +154,9 @@ type Config struct {
 		Host string `json:"host"`
 		Port string `json:"port"`
 		Path string `json:"path"`
+		// number of allowed concurrent lookups to Eye per Eyewall
+		// instance, 0 for unlimited
+		ConcurrencyLimit uint32 `json:"eye.request.concurrency.limit,string"`
 	} `json:"eyewall"`
 	// Eye is the namespace for configuration options relating to
 	// the eye configuration profile server
