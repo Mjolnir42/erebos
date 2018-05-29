@@ -183,6 +183,17 @@ type Config struct {
 			Key    string   `json:"key-file"`
 		} `json:"daemon"`
 	} `json:"eye"`
+	// PostgreSQL is the namespace for configuration options relating to
+	// connections to a pgSQL database
+	PostgreSQL struct {
+		Host    string `json:"host" valid:"dns"`
+		User    string `json:"user" valid:"alphanum"`
+		Name    string `json:"name" valid:"alphanum"`
+		Port    string `json:"port" valid:"port"`
+		Pass    string `json:"password" valid:"-"`
+		Timeout string `json:"timeout" valid:"numeric"`
+		TLSMode string `json:"tlsmode" valid:"alpha"`
+	} `json:"postgresql"`
 }
 
 // FromFile sets Config c based on the file contents
