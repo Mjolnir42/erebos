@@ -138,6 +138,8 @@ type Config struct {
 		ProduceMetrics bool `json:"produce.metrics,string"`
 		// Name of the application instance
 		InstanceName string `json:"instance.name"`
+		// ReadOnly sets the application to readonly if supported
+		ReadOnly bool `json:"readonly,string"`
 	} `json:"misc"`
 	// Hurricane is the namespace with configuration options relating
 	// to the calculation of derived metrics
