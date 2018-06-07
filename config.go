@@ -149,6 +149,7 @@ type Config struct {
 		DeriveCPU          bool `json:"derive.cpu.metrics,string"`
 		DeriveMEM          bool `json:"derive.mem.metrics,string"`
 		DeriveDISK         bool `json:"derive.disk.metrics,string"`
+		DeriveNETIF        bool `json:"derive.netif.metrics,string"`
 	} `json:"hurricane"`
 	// Eyewall is the namespace for configuration options relating to
 	// the eye lookup client library
