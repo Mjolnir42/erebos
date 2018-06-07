@@ -159,6 +159,9 @@ type Config struct {
 		// number of allowed concurrent lookups to Eye per Eyewall
 		// instance, 0 for unlimited
 		ConcurrencyLimit uint32 `json:"eye.request.concurrency.limit,string"`
+		// ApplicationName overrides the application name with which the
+		// lookup client registers with Eye
+		ApplicationName string `json:"eye.registration.application.name"`
 	} `json:"eyewall"`
 	// Eye is the namespace for configuration options relating to
 	// the eye configuration profile server
