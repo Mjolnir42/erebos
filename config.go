@@ -214,6 +214,21 @@ type Config struct {
 		// Datacenter in which this runs
 		Datacenter string `json:"datacenter"`
 	} `json:"geocontrol"`
+	// Stormchaser ...
+	Stormchaser struct {
+		HandlerQueueLength     int    `json:"handler.queue.length,string"`
+		ConcurrencyLimit       uint32 `json:"request.concurrency.limit,string"`
+		AlarmAPIDestinationURI string `json:"alarm.api.destination.uri"`
+		Profiles               []struct {
+			EyeHost                      string `json:"eye.host"`
+			EyePort                      string `json:"eye.port"`
+			TargetApplication            string `json:"target.application"`
+			ExpectedRegistrations        int64  `json:"expected.application.registration.count,string"`
+			RegistrationAlertMissing     bool   `json:"alert.missing.registrations,string"`
+			RegistrationAlertUnavailable bool   `json:"alert.unavailable.registrations,string"`
+			HeartbeatAlertStale          bool   `json:"alert.stale.heartbeats,string"`
+		} `json:"profiles"`
+	} `json:"stormchaser"`
 }
 
 // FromFile sets Config c based on the file contents
