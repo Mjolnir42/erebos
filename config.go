@@ -17,6 +17,7 @@ import (
 
 	"github.com/client9/reopen"
 	ucl "github.com/nahanni/go-ucl"
+	"github.com/ulule/deepcopier"
 )
 
 // Config holds the runtime configuration which is expected to be
@@ -260,6 +261,13 @@ func (c *Config) FromFile(fname string) error {
 		return err
 	}
 	return json.Unmarshal(uclJSON, &c)
+}
+
+// Clone returns a copy of c
+func (c *Config) Clone() *Config {
+	clone := Config{}
+	deepcopier.Copy(*c).To(clone)
+	return &clone
 }
 
 // vim: ts=4 sw=4 sts=4 noet fenc=utf-8 ffs=unix
