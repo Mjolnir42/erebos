@@ -164,6 +164,9 @@ type Config struct {
 		// ApplicationName overrides the application name with which the
 		// lookup client registers with Eye
 		ApplicationName string `json:"eye.registration.application.name"`
+		// Enable this switch for applications that do not cache Eye
+		// information
+		NoLocalRedis bool `json:"no.local.redis,string"`
 	} `json:"eyewall"`
 	// Eye is the namespace for configuration options relating to
 	// the eye configuration profile server
@@ -225,9 +228,11 @@ type Config struct {
 			EyePort                      string `json:"eye.port"`
 			TargetApplication            string `json:"target.application"`
 			ExpectedRegistrations        int64  `json:"expected.application.registration.count,string"`
+			ExpectedMetricProgress       int64  `json:"expected.metric.progress.per.check,string"`
 			RegistrationAlertMissing     bool   `json:"alert.missing.registrations,string"`
 			RegistrationAlertUnavailable bool   `json:"alert.unavailable.registrations,string"`
 			HeartbeatAlertStale          bool   `json:"alert.stale.heartbeats,string"`
+			MetricsAlertProgress         bool   `json:"alert.insufficient.metric.progress,string"`
 		} `json:"profiles"`
 	} `json:"stormchaser"`
 }
