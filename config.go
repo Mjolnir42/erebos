@@ -75,6 +75,7 @@ type Config struct {
 		HandlerQueueLength int    `json:"handler.queue.length,string"`
 		ListenAddress      string `json:"listen.address"`
 		ListenPort         string `json:"listen.port"`
+		ListenScheme       string `json:"listen.scheme"`
 		EndpointPath       string `json:"api.endpoint.path"`
 		ShutdownGrace      int    `json:"graceful.shutdown.delay.seconds,string"`
 	} `json:"mistral"`
@@ -235,6 +236,18 @@ type Config struct {
 			MetricsAlertProgress         bool   `json:"alert.insufficient.metric.progress,string"`
 		} `json:"profiles"`
 	} `json:"stormchaser"`
+	// TLS contains the TLS configuration and settings
+	TLS struct {
+		CertificateChains []struct {
+			ChainFile string `json:"certificate.chain.file"`
+			KeyFile   string `json:"certificate.key.file"`
+		} `json:"certificate.chains"`
+		RootCAs    []string `json:"root.certificates"`
+		MinVersion string   `json:"min.version"`
+		MaxVersion string   `json:"max.version"`
+		ServerName string   `json:"server.name"`
+		Ciphers    string   `json:"cipher.style"`
+	} `json:"tls"`
 }
 
 // FromFile sets Config c based on the file contents
