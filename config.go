@@ -78,6 +78,7 @@ type Config struct {
 		ListenScheme       string `json:"listen.scheme"`
 		EndpointPath       string `json:"api.endpoint.path"`
 		ShutdownGrace      int    `json:"graceful.shutdown.delay.seconds,string"`
+		Authentication     string `json:"authentication.style"`
 	} `json:"mistral"`
 	// DustDevil is the namespace with configuration options relating to
 	// forwarding Kafka read messages to an HTTP API
@@ -236,6 +237,11 @@ type Config struct {
 			MetricsAlertProgress         bool   `json:"alert.insufficient.metric.progress,string"`
 		} `json:"profiles"`
 	} `json:"stormchaser"`
+	// BasicAuth contains static basic auth configuration
+	BasicAuth struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	} `json:"basicauth"`
 	// TLS contains the TLS configuration and settings
 	TLS struct {
 		CertificateChains []struct {
