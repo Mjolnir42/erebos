@@ -60,6 +60,8 @@ type Config struct {
 		ProducerResponseStrategy string `json:"producer.response.strategy"`
 		// Producer retry attempts
 		ProducerRetry int `json:"producer.retry.attempts,string"`
+		// Producer compression: none,snappy,gzip,lz4
+		ProducerCompressionCodec string `json:"producer.compression.codec"`
 		// Keepalive interval in milliseconds
 		Keepalive int `json:"keepalive.ms,string"`
 	} `json:"kafka"`
