@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/Shopify/sarama"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/wvanbergen/kafka/consumergroup"
 	kazoo "github.com/wvanbergen/kazoo-go"
 )
