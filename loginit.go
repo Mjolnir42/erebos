@@ -12,8 +12,8 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/samuel/go-zookeeper/zk"
+	"github.com/sirupsen/logrus"
 )
 
 // DisableZKLogger is meant to be called in init() and will

@@ -10,7 +10,7 @@ package erebos // import "github.com/mjolnir42/erebos"
 import (
 	"os"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 // Logrotate reopens the filehandle in conf whenever a signal
